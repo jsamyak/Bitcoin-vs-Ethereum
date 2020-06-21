@@ -120,6 +120,39 @@ Question1 <- tabPanel(
   )
 )
 
+Question2 <- tabPanel(
+  "Bitcoin vs Ethereum price", 
+  headerPanel("Comparing Bitcoin versus Ethereum prices over time"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("year2", p("Select year"), value = 2017, min = 2017, max = 2020, step = 1),
+      br(),
+      checkboxGroupInput(inputId = "coinType2",
+                         p("Select the cryptocurrency you would like to include:"),
+                         choices = c("Bitcoin", "Ethereum")
+      ),
+    ),
+    mainPanel(
+      p("How do the price values of Bitcoin and Ethereum compare with each other
+        over time? Bitcoin and Ethereum are the 2 biggest currencies, and we look 
+        to examine if their price trends are related in some way. As Bitcoin and Ethereum
+        comprise a large amount of the cryptocurrency market share, this could suggest
+        trends for cryptocurrency itself, since price is influenced by things such as 
+        supply and demand. For this visualization, we will use the value of each 
+        currency at market close."),
+      plotOutput("priceAnalysis"),
+      p("We chose to visualize the relationship between Bitcoin and Ethereum price values
+        with a point scatterplot. The x-axis represents dates, and the y-axis represents
+        the price values in USD. The colors of the points represent the currency the observation
+        belongs to. The years that you would like to view can be changed by checking boxes of 
+        any combination of years from 2017 to 2020."), 
+      p("Overall, many points fluctuate from the mean value. This may suggest that cryptocurrency
+        is rapidly changing, as it is not completely solidified as a universal form of currency
+        and is frequently subject to change."),
+    )
+  )
+)
+
 my_ui <- shinyUI(
   fluidPage(
     theme = shinytheme("cerulean"),
