@@ -72,6 +72,54 @@ Home <- tabPanel(
   fluidRow(column(DT::dataTableOutput("RawDataEthereum"), width = 12))
 )
 
+Question1 <- tabPanel(
+  "High vs Low Price",
+  fluidRow(
+    column(width=2),
+    column(
+      h1(p("Comparing the high and low price for each day",style="color:black;text-align:center")),
+      width=8,style="background-color:lavender;border-radius: 10px"
+    )
+  ),
+  br(),
+  h3("High and low values per day for the 2 currencies were measured in terms of USD (Bitcoin and Ether were 
+    converted to USD).", style="text-align:center;background-color:papayawhip;padding:10px;border-radius:10px"),
+  hr(),
+  h4("In the following scatterplot, you can see the trend of the highest and lowest price of the chosen crypto 
+         coin you have choosen to view. By analysing the trend on the graph, one can clearly say that over a given time
+         period, there has been great fluctuations in these values.", style="color:green"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("year1", p("Select year"), value = 2017, min = 2017, max = 2020, step = 1),
+      br(),
+      radioButtons(
+        "coinType1",
+        p("Select the cryptocurrency you would like to view:"),
+        choices = c("Bitcoin" = 1, "Ethereum" = 2)
+      )
+    ),
+    mainPanel(
+      plotOutput("highLowAnalysis")
+    )
+  ),
+  hr(),
+  sidebarLayout(
+    sidebarPanel(
+      h4("Mean fluctuation in the difference of high price and low price for selected year:",
+         style="aligh:center"),
+      textOutput("meanHighLow")
+    ),
+    mainPanel(
+      h5("We found the mean fluctuation of prices per day. 
+         This seems to suggest that daily fluctuation is significantly large, and a frequently-changing currency. This 
+         could be indicative of many things, likely higher trading volume, risk or instability. As we further observed 
+         in question 3, trading volume trend increases in general. We can therefore likely attribute the fluctuation 
+         to the increase in volume."
+      )
+    )
+  )
+)
+
 my_ui <- shinyUI(
   fluidPage(
     theme = shinytheme("cerulean"),
