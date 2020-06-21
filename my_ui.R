@@ -185,6 +185,57 @@ Question3 <- tabPanel(
   )
 )
 
+Result <- tabPanel(
+  "Result Page",
+  h1("Results"),
+  sidebarLayout(
+    sidebarPanel(
+      h4("The graph on the right is the difference in the high price and the low price over change in volume of Bitcoin.")
+    ),
+    mainPanel(
+      plotOutput("results1")
+    )
+  ),
+  sidebarLayout(
+    sidebarPanel(
+      h4("The graph on the right is the difference in the high price and the low price over change in volume of Ethereum.")
+    ),
+    mainPanel(
+      plotOutput("results2")
+    )
+  ),
+  hr(),
+  h3("Results and Implications", style = "align:center"),
+  br(),
+  fluidRow(
+    column(p("The mean price for bitcoin was "),
+           p(textOutput("question2_stats1")),
+           width = 3, style = "align:center"
+    ),
+    column(p("The mean price for ethereum was "),
+           p(textOutput("question2_stats2")),
+           width = 3
+    ),
+    column(p("The mean volume for bitcoin was "),
+           p(textOutput("question3_stats1")),
+           width = 3
+    ),
+    column(p("The mean volume for ethereum was "),
+           p(textOutput("question3_stats2")),
+           width = 3
+    ),
+    style = "text-align:left;color:black;background-color:lavender;padding:15px;border-radius:10px"  
+  ),
+  
+  br(),
+  p("Based on the results, we can conclude that both cryptocurrencies has a general increasing trend between volume and price.
+      However, Ethereum's data points tend to be more spread out and scatter around the lower volumes, and greatly fluctuate from
+      the calculated means.
+      This could imply that our data could been have skewed. Furthemore, this could be telling that Ethereum is a having a lower demand at lower price
+      since you can see all the data points hovering around the lower end of the volume. This also explains Bitcoin being the preferred cryptocurrency
+      since the linear progression (red line) is growing at a higher exponential rate than Ethereum.")
+)
+
 my_ui <- shinyUI(
   fluidPage(
     theme = shinytheme("cerulean"),
