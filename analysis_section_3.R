@@ -1,0 +1,7 @@
+library(wbstats)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(maps)
+library(mapproj)
+library(knitr)
