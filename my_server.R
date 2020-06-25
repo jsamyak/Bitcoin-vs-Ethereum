@@ -57,5 +57,18 @@ server <- function(input, output) {
     rownames = FALSE,
     colnames = c("Date","Symbol","Open","High","Low","Close","Volume BTC","Volume USDT")
     ))
+
+    output$meanHighLow <- renderText({
+    meanCal(as.character(input$year1), input$coinType1)
+  })
+  
+  ### Results ###
+  output$results1 <- renderPlot(
+    bitcoin_result
+  )
+  
+  output$results2 <- renderPlot(
+    ethereum_result
+  )
 }
 
