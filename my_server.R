@@ -70,5 +70,22 @@ server <- function(input, output) {
   output$results2 <- renderPlot(
     ethereum_result
   )
+
+    ###Stats###
+  output$question2_stats1  <- renderText(
+    bitcoin_price_mean
+  )
+  
+  output$question2_stats2 <- renderText(
+    ethereum_price_mean
+  )
+  
+  output$question3_stats1  <- renderText(
+    bitcoin_volume_mean
+  )
+  
+  output$question3_stats2 <- renderText(
+    ethereum_volume_mean
+  )
 }
 
