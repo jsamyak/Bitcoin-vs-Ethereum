@@ -59,3 +59,65 @@ high_low <- function(year, coin_type) {
     return(ethereum_comparison)
   }
 }
+
+#####################
+#### QUESTION 2 #####
+#####################
+price_bitcoin <- select(bitcoin, Date, Close)
+names(price_bitcoin)[names(price_bitcoin) == "Close"] <- "Bitcoin_Price"
+price_ethereum <- select(ethereum,Date, Close)
+price_ethereum <- filter(price_ethereum, Close != 0)
+names(price_ethereum)[names(price_ethereum) == "Close"] <- "Ethereum_Price"
+
+combined_price_data <- left_join(price_bitcoin, price_ethereum, by = "Date")
+combined_price_data <- filter(combined_price_data, Bitcoin_Price != 0, Ethereum_Price != 0)
+
+price <- function(year, coin_value) {
+  combined_price_data <- filter(combined_price_data, startsWith(Date, year))
+  if(coin_value == "Bitcoin") {
+    price_analysis <- ggplot(data = combined_price_data) +
+      geom_point(mapping = aes(x = Date, y = Bitcoin_Price, colour = "Bitcoin Price"), alpha = .4) +
+      labs(
+        title = "Price Analysis for Bitcoin and Ethereum",
+        x = "Dates" ,
+        y = "Price"
+      ) +
+      theme(axis.text.x=element_blank())
+    return(price_analysis)
+  } else if(coin_value == "Ethereum") {
+    price_analysis <- ggplot(data = combined_price_data) +
+      geom_point(mapping = aes(x = Date, y = Ethereum_Price, colour = "Ethereum Price"), alpha = .4) +
+      labs(
+        title = "Price Analysis for Bitcoin and Ethereum",
+        x = "Dates" ,
+        y = "Price"
+      ) +
+      theme(axis.text.x=element_blank())
+    return(price_analysis)
+  } else if(coin_value == "Bitcoin, Ethereum") {
+    price_analysis <- ggplot(data = combined_price_data) +
+      geom_point(mapping = aes(x = Date, y = Bitcoin_Price, colour = "Bitcoin Price"), alpha = .4) +
+      geom_point(mapping = aes(x = Date, y = Ethereum_Price, colour = "Ethereum Price"), alpha = .4) +
+      labs(
+        title = "Price Analysis for Bitcoin and Ethereum",
+        x = "Dates" ,
+        y = "Price"
+      ) +
+      theme(axis.text.x=element_blank())
+    return(price_analysis)
+  } else {
+    price_analysis <- ggplot(data = combined_price_data) +
+      labs(
+        title = "Price Analysis for Bitcoin and Ethereum",
+        x = "Dates" ,
+        y = "Price"
+      ) +
+      theme(axis.text.x=element_blank())
+    return(price_analysis)
+  }
+}
+
+
+bitcoin_price_mean <- as.character(mean(price_bitcoin$Bitcoin_Price))
+
+ethereum_price_mean <- as.character(mean(price_ethereum$Ethereum_Price))
